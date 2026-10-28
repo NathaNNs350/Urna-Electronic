@@ -29,6 +29,9 @@ public class TelaMenuInicial extends JFrame {
         pBtMenu.add(btVaza);
 
         btVotar.addActionListener(e -> new TelaVotacao());
+        btApurar.addActionListener(e -> new TelaApuracao());
+        btSobre.addActionListener(e -> new TelaSobre());
+        btVaza.addActionListener(e -> dispose());
 
         setTitle("Urninha papae");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
