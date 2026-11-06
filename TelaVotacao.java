@@ -5,16 +5,38 @@ import javax.swing.*;
 
 public class TelaVotacao extends JFrame {
 
-    ///MENU INICIAL PARA TESTES!///
+    ///MENU DAS VOTAÇÔES - EM PROGRESSO///
     
-    private JLabel lbTexto;
+    private JLabel lbSeuVoto, lbCargo, lbDigito1, lbDigito2, lbNome, lbPartido, lbAviso, lbNUMEROTESTE;
     private JButton bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, btBranco, btCorrige, btConfirma;
-    private JPanel pUrna, pNumeros, pAcao;
+    private JPanel pUrna, pNumeros, pAcao, pInformacao, pDigitos;
+    private String numeroDigi;
+    private Boolean Branco;
+    private Candidato candidatoSelec;
+    private Eleicao eleicao;
 
-    public TelaVotacao() {
+    public TelaVotacao(Eleicao eleicao) {
         setLayout(new BorderLayout());
 
-        lbTexto = new JLabel("Tela Votação!!");
+        this.eleicao = eleicao;
+        numeroDigi = "";
+        Branco = true;
+        candidatoSelec = null;
+
+        lbNUMEROTESTE = new JLabel(numeroDigi);
+
+        lbSeuVoto = new JLabel("SEU VOTO");
+        lbSeuVoto.setFont(new Font("Arial", Font.PLAIN, 14));
+        lbCargo = new JLabel("CANDIDATO");
+        lbCargo.setFont(new Font("Arial", Font.BOLD, 26));
+        lbDigito1 = criarLabelDigito();
+        lbDigito2 = criarLabelDigito();
+        lbNome = new JLabel("TESTE CANDIDATO");
+        lbNome.setFont(new Font("Arial", Font.BOLD, 18));
+        lbPartido = new JLabel("TESTE PARTIDO");
+        lbPartido.setFont(new Font("Arial", Font.PLAIN, 16));
+        lbAviso = new JLabel("TESTE AVISO");
+        lbAviso.setFont(new Font("Arial", Font.PLAIN, 12));
         bt0 = new JButton("0");
         bt1 = new JButton("1");
         bt2 = new JButton("2");
@@ -28,6 +50,8 @@ public class TelaVotacao extends JFrame {
         btBranco = new JButton("BRANCO");
         btCorrige = new JButton("CORRIGE");
         btConfirma = new JButton("CONFIRMA");
+        pInformacao = new JPanel(new GridLayout(6, 1));
+        pDigitos = new JPanel(new FlowLayout());
         pNumeros = new JPanel(new GridLayout(4, 3, 6, 4));
         pAcao = new JPanel(new GridLayout(1, 3, 4, 4));
         pUrna = new JPanel(new BorderLayout());
@@ -101,7 +125,7 @@ public class TelaVotacao extends JFrame {
             btBranco.setFont(new Font("Arial", Font.BOLD, 11));
             btBranco.setMargin(new Insets(0, 0, 0, 0));
             btBranco.setPreferredSize(new Dimension(95, 45));
-            
+
             btCorrige.setBackground(new Color(220, 120, 0));
             btCorrige.setForeground(Color.BLACK);
             btCorrige.setOpaque(true);
@@ -109,7 +133,7 @@ public class TelaVotacao extends JFrame {
             btCorrige.setFont(new Font("Arial", Font.BOLD, 11));
             btCorrige.setMargin(new Insets(0, 0, 0, 0));
             btCorrige.setPreferredSize(new Dimension(95, 45));
-            
+
             btConfirma.setBackground(new Color(0, 120, 0));
             btConfirma.setForeground(Color.WHITE);
             btConfirma.setOpaque(true);
@@ -118,15 +142,17 @@ public class TelaVotacao extends JFrame {
             btConfirma.setMargin(new Insets(0, 0, 0, 0));
             btConfirma.setPreferredSize(new Dimension(95, 45));
         }
-        
+
         pUrna.setBackground(new Color(50, 50, 50));
         pNumeros.setBackground(new Color(50, 50, 50));
         pAcao.setBackground(new Color(50, 50, 50));
+        pDigitos.setBackground(Color.WHITE);
+        pInformacao.setBackground(Color.WHITE);
 
         pUrna.setBorder(BorderFactory.createEmptyBorder(110, 20, 60, 20));
         pNumeros.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
 
-        add(lbTexto, BorderLayout.CENTER);
+        add(pInformacao, BorderLayout.CENTER);
         add(pUrna, BorderLayout.EAST);
         {
             pNumeros.add(bt9);
@@ -142,17 +168,110 @@ public class TelaVotacao extends JFrame {
             pNumeros.add(bt0);
             pNumeros.add(new JLabel(""));
         }
+        pInformacao.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+        pInformacao.add(lbSeuVoto);
+        pInformacao.add(lbCargo);
+        pInformacao.add(pDigitos);
+        pInformacao.add(lbNome);
+        pInformacao.add(lbPartido);
+        pInformacao.add(lbAviso);
+        pDigitos.add(lbDigito1);
+        pDigitos.add(lbDigito2);
+        pDigitos.add(lbNUMEROTESTE);
         pAcao.add(btBranco);
         pAcao.add(btCorrige);
         pAcao.add(btConfirma);
         pUrna.add(pNumeros, BorderLayout.CENTER);
         pUrna.add(pAcao, BorderLayout.SOUTH);
 
-        //btVotar.addActionListener(e -> new TelaVotacao());
+        {
+            bt0.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 0));
+            bt1.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 1));
+            bt2.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 2));
+            bt3.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 3));
+            bt4.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 4));
+            bt5.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 5));
+            bt6.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 6));
+            bt7.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 7));
+            bt8.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 8));
+            bt9.addActionListener(e -> lbNUMEROTESTE.setText(lbNUMEROTESTE.getText() + 9));
+        }
+
+        bt9.addActionListener(e -> atualizarDisplay());
+
+        btBranco.addActionListener(e -> votarBranco());
+        btCorrige.addActionListener(e -> {
+            numeroDigi = "";
+            lbNUMEROTESTE.setText("");
+        });
+
         setTitle("Votação");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 500);
         setVisible(true);
         setLocationRelativeTo(null);
+    }
+
+    private JLabel criarLabelDigito() {
+        JLabel label = new JLabel("", JLabel.CENTER);
+        label.setPreferredSize(new Dimension(45, 55));
+        label.setFont(new Font("Arial", Font.BOLD, 30));
+        label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        return label;
+    }
+
+    private void votarBranco() {
+        if (numeroDigi.length() > 0) {
+            lbAviso.setText("Para votar em BRANCO, aperte CORRIGE antes.");
+            return;
+        }
+        Branco = true;
+        atualizarDisplay();
+    }
+
+    private void reiniciar() {
+        numeroDigi = "";
+        Branco = false;
+        candidatoSelec = null;
+
+        //lbSeuVoto.setText("SEU VOTO PARA");
+        //lbCargo.setText("PREFEITO");
+        //pDigitos.setVisible(true);
+        atualizarDisplay();
+        //habilitarTeclado(true);
+    }
+
+    private void atualizarDisplay() {
+        lbDigito1.setText("");
+        lbDigito2.setText("");
+        if (numeroDigi.length() >= 1) {
+            lbDigito1.setText(numeroDigi.substring(0, 1));
+        }
+        if (numeroDigi.length() >= 2) {
+            lbDigito2.setText(numeroDigi.substring(1, 2));
+            candidatoSelec = null;
+            lbNome.setText("");
+            lbPartido.setText("");
+            lbAviso.setText("");
+            if (Branco) {
+                lbNome.setText("VOTO EM BRANCO");
+                lbAviso.setText("Aperte CONFIRMA para confirmar ou CORRIGE para refazer.");
+            } else if (numeroDigi.length() == 2) {
+                candidatoSelec = eleicao.buscarCandidato(numeroDigi);
+                if (candidatoSelec != null) {
+                    lbNome.setText("Nome: " + candidatoSelec.getNome());
+                    lbPartido.setText("Partido: " + candidatoSelec.getPartido());
+                    lbAviso.setText("Aperte CONFIRMA para confirmar ou CORRIGE para refazer.");
+                } else {
+                    lbNome.setText("NÚMERO ERRADO");
+                    lbPartido.setText("VOTO NULO");
+                    lbAviso.setText("Aperte CONFIRMA para confirmar ou CORRIGE para refazer.");
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new TelaVotacao(new Eleicao());
     }
 }

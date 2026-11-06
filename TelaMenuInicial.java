@@ -28,7 +28,7 @@ public class TelaMenuInicial extends JFrame {
         pBtMenu.add(btSobre);
         pBtMenu.add(btVaza);
 
-        btVotar.addActionListener(e -> new TelaVotacao());
+        btVotar.addActionListener(e -> new TelaVotacao(new Eleicao()));
         btApurar.addActionListener(e -> new TelaApuracao());
         btSobre.addActionListener(e -> new TelaSobre());
         btVaza.addActionListener(e -> dispose());
