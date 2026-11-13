@@ -20,13 +20,13 @@ public class TelaSobre extends JFrame {
         lbEscola = new JLabel("Escola: IFCE - Instituto Federal do Ceará");
         lbProfessor = new JLabel("Professor(a): Vitor Adler Reis Paiva");
         lbData = new JLabel("Data: 07/11/2026");
-        lbVersao = new JLabel("Versão: 0.5.5");
+        lbVersao = new JLabel("Versão: 0.6.1");
         btFechar = new JButton("Fechar");
         pTitulo = new JPanel(new FlowLayout());
         pDados = new JPanel(new GridLayout(0, 1, 5, 5));
         pRodape = new JPanel(new FlowLayout());
 
-        lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTitulo.setFont(new Font("Arial Black Normal", Font.BOLD, 20));
         lbTitulo.setForeground(Color.WHITE);
 
         pTitulo.setBackground(new Color(0, 90, 60));
@@ -48,7 +48,7 @@ public class TelaSobre extends JFrame {
 
         setTitle("Urna Remake - Sobre");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(450, 320);
+        setSize(480, 400);
         setVisible(true);
         setLocationRelativeTo(null);
     }

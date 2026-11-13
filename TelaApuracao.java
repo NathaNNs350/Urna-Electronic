@@ -29,10 +29,10 @@ public class TelaApuracao extends JFrame {
         pTitulo = new JPanel(new FlowLayout());
         pBts = new JPanel(new FlowLayout());
 
-        lbTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTitulo.setFont(new Font("Arial Black Normal", Font.BOLD, 24));
         lbTitulo.setForeground(Color.WHITE);
         taResul.setEditable(false);
-        taResul.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        taResul.setFont(new Font("Monospace 821 BT", Font.PLAIN, 16));
         pTitulo.setBackground(new Color(0, 90, 60));
 
         add(pTitulo, BorderLayout.NORTH);
@@ -49,7 +49,7 @@ public class TelaApuracao extends JFrame {
 
         setTitle("Urna Remake - Apuração");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(550, 400);
+        setSize(600, 500);
         setVisible(true);
         setLocationRelativeTo(null);
     }

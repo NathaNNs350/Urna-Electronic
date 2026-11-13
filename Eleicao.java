@@ -16,6 +16,7 @@ public class Eleicao {
 
         // Candidatos FICTÍCIOS
         candidatos.add(new Candidato("11", "Ana Souza", "Partido do Sol"));
+        candidatos.add(new Candidato("13", "Luís Inácio", "Partido do Trabalhador"));
         candidatos.add(new Candidato("22", "Bruno Lima", "Partido da Lua"));
         candidatos.add(new Candidato("33", "Carla Mendes", "Partido do Mar"));
         candidatos.add(new Candidato("44", "Diego Rocha", "Partido da Serra"));
