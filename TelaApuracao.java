@@ -32,7 +32,7 @@ public class TelaApuracao extends JFrame {
         lbTitulo.setFont(new Font("Arial Black Normal", Font.BOLD, 24));
         lbTitulo.setForeground(Color.WHITE);
         taResul.setEditable(false);
-        taResul.setFont(new Font("Monospace 821 BT", Font.PLAIN, 16));
+        taResul.setFont(new Font("Courier New Negrito Itálico", Font.PLAIN, 16));
         pTitulo.setBackground(new Color(0, 90, 60));
 
         add(pTitulo, BorderLayout.NORTH);

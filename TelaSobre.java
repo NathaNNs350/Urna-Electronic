@@ -19,8 +19,8 @@ public class TelaSobre extends JFrame {
         lbTurma = new JLabel("Turma: 2o ano - Curso Técnico em Informatica para Internet");
         lbEscola = new JLabel("Escola: IFCE - Instituto Federal do Ceará");
         lbProfessor = new JLabel("Professor(a): Vitor Adler Reis Paiva");
-        lbData = new JLabel("Data: 07/11/2026");
-        lbVersao = new JLabel("Versão: 0.6.1");
+        lbData = new JLabel("Data: 21/11/2026");
+        lbVersao = new JLabel("Versão: 0.8.0");
         btFechar = new JButton("Fechar");
         pTitulo = new JPanel(new FlowLayout());
         pDados = new JPanel(new GridLayout(0, 1, 5, 5));
