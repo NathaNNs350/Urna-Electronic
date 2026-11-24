@@ -2,14 +2,15 @@ package urnaeletronica;
 
 public class Candidato {
 
-    private String numero, nome, partido;
+    private String numero, nome, partido, foto;
     private int votos;
 
     ///Construtor///
-    public Candidato(String numero, String nome, String partido) {
+    public Candidato(String numero, String nome, String partido, String foto) {
         this.numero = numero;
         this.nome = nome;
         this.partido = partido;
+        this.foto = foto;
         this.votos = 0;
     }
 
@@ -24,6 +25,10 @@ public class Candidato {
 
     public String getPartido() {
         return partido;
+    }
+    
+    public String getFoto() {
+        return foto;
     }
 
     public int getVotos() {

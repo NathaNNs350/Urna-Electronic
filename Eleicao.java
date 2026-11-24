@@ -15,12 +15,14 @@ public class Eleicao {
         votosNulos = 0;
 
         // Candidatos FICTÍCIOS
-        candidatos.add(new Candidato("11", "Ana Souza", "Partido do Sol"));
-        candidatos.add(new Candidato("13", "Luís Inácio", "Partido do Trabalhador"));
-        candidatos.add(new Candidato("22", "Bruno Lima", "Partido da Lua"));
-        candidatos.add(new Candidato("33", "Carla Mendes", "Partido do Mar"));
-        candidatos.add(new Candidato("44", "Diego Rocha", "Partido da Serra"));
-
+        candidatos.add(new Candidato("11", "Ana Souza", "Partido do Sol", "/urnaeletronica/imagens/11.jpg"));
+        candidatos.add(new Candidato("13", "Luís Inácio", "Partido do Trabalhador", "/urnaeletronica/imagens/CandPlaceholder.png"));
+        candidatos.add(new Candidato("22", "Bruno Lima", "Partido da Lua", "/urnaeletronica/imagens/22.jpg"));
+        candidatos.add(new Candidato("33", "Carla Mendes", "Partido do Mar", "/urnaeletronica/imagens/33.jpg"));
+        candidatos.add(new Candidato("44", "Diego Rocha", "Partido da Serra", "/urnaeletronica/imagens/44.jpg"));
+        candidatos.add(new Candidato("67", "Caio Nicolas", "Partido Chadista", "/urnaeletronica/imagens/67.jpg"));
+        candidatos.add(new Candidato("69", "José Augusto", "Partido Chadista", "/urnaeletronica/imagens/69.jpg"));
+        candidatos.add(new Candidato("28", "Kelson Monteiro", "Partido Chadista", "/urnaeletronica/imagens/28.jpg"));
     }
 
     public Candidato buscarCandidato(String numero) {

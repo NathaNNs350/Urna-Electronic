@@ -1,15 +1,19 @@
 package urnaeletronica;
 
 import java.awt.*;
+import java.net.URL;
 import javax.swing.*;
 
 public class TelaVotacao extends JFrame {
 
     ///MENU DAS VOTAÇÔES - EM PROGRESSO///
-    
-    private JLabel lbSeuVoto, lbCargo, lbDigito1, lbDigito2, lbNome, lbPartido, lbAviso;
+
+    private static final int L_IMG = 120;
+    private static final int A_IMG = 160;
+
+    private JLabel lbSeuVoto, lbCargo, lbDigito1, lbDigito2, lbNome, lbPartido, lbAviso, lbFoto;
     private JButton bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, btBranco, btCorrige, btConfirma;
-    private JPanel pUrna, pNumeros, pAcao, pInformacao, pDigitos;
+    private JPanel pUrna, pNumeros, pAcao, pInformacao, pDigitos, pFoto, pCentral;
     private String numeroDigi;
     private Boolean Branco;
     private Candidato candidatoSelec;
@@ -35,6 +39,7 @@ public class TelaVotacao extends JFrame {
         lbPartido.setFont(new Font("Arial", Font.PLAIN, 16));
         lbAviso = new JLabel("");
         lbAviso.setFont(new Font("Arial", Font.PLAIN, 12));
+        lbFoto = new JLabel("", JLabel.CENTER);
         bt0 = new JButton("0");
         bt1 = new JButton("1");
         bt2 = new JButton("2");
@@ -53,6 +58,8 @@ public class TelaVotacao extends JFrame {
         pNumeros = new JPanel(new GridLayout(4, 3, 6, 4));
         pAcao = new JPanel(new GridLayout(1, 3, 4, 4));
         pUrna = new JPanel(new BorderLayout());
+        pFoto = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
+        pCentral = new JPanel(new BorderLayout());
 
         {
             bt0.setFont(new Font("Arial", Font.BOLD, 20));
@@ -146,11 +153,18 @@ public class TelaVotacao extends JFrame {
         pAcao.setBackground(new Color(50, 50, 50));
         pDigitos.setBackground(Color.WHITE);
         pInformacao.setBackground(Color.WHITE);
+        pFoto.setBackground(Color.WHITE);
 
         pUrna.setBorder(BorderFactory.createEmptyBorder(110, 20, 60, 20));
         pNumeros.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+        pFoto.setPreferredSize(new Dimension(L_IMG + 30, A_IMG + 50));
+        
+        lbFoto.setPreferredSize(new Dimension(L_IMG, A_IMG));
+        lbFoto.setHorizontalAlignment(SwingConstants.CENTER);
+        lbFoto.setVerticalAlignment(SwingConstants.CENTER);
+        lbFoto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        add(pInformacao, BorderLayout.CENTER);
+        add(pCentral, BorderLayout.CENTER);
         add(pUrna, BorderLayout.EAST);
         {
             pNumeros.add(bt9);
@@ -166,6 +180,8 @@ public class TelaVotacao extends JFrame {
             pNumeros.add(bt0);
             pNumeros.add(new JLabel(""));
         }
+        pCentral.add(pInformacao, BorderLayout.CENTER);
+        pCentral.add(pFoto, BorderLayout.EAST);
         pInformacao.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         pInformacao.add(lbSeuVoto);
         pInformacao.add(lbCargo);
@@ -180,6 +196,7 @@ public class TelaVotacao extends JFrame {
         pAcao.add(btConfirma);
         pUrna.add(pNumeros, BorderLayout.CENTER);
         pUrna.add(pAcao, BorderLayout.SOUTH);
+        pFoto.add(lbFoto);
 
         {
             bt0.addActionListener(e -> digitar("0"));
@@ -194,8 +211,6 @@ public class TelaVotacao extends JFrame {
             bt9.addActionListener(e -> digitar("9"));
         }
 
-        bt9.addActionListener(e -> atualizarDisplay());
-
         btBranco.addActionListener(e -> votarBranco());
         btCorrige.addActionListener(e -> reiniciar());
         btConfirma.addActionListener(e -> confirmar());
@@ -204,7 +219,7 @@ public class TelaVotacao extends JFrame {
 
         setTitle("Urna Remake - Votando");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(800, 500);
+        setSize(880, 500);
         setVisible(true);
         setLocationRelativeTo(null);
     }
@@ -215,6 +230,32 @@ public class TelaVotacao extends JFrame {
         label.setFont(new Font("Arial", Font.BOLD, 30));
         label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         return label;
+    }
+
+    private ImageIcon carregarFoto(String caminho) {
+        if (caminho == null) {
+            return null;
+        }
+        URL url = getClass().getResource(caminho);
+        if (url == null) {
+            return null; // arquivo não encontrado dentro do projeto
+        }
+        ImageIcon original = new ImageIcon(url);
+        Image reduzida = original.getImage().getScaledInstance(
+                L_IMG, A_IMG, Image.SCALE_SMOOTH);
+        return new ImageIcon(reduzida);
+    }
+
+    private void mostrarFoto(Candidato candidato) {
+        ImageIcon icone = carregarFoto(candidato.getFoto());
+        if (icone != null) {
+            lbFoto.setIcon(icone);
+            lbFoto.setText("");
+        } else {
+            lbFoto.setIcon(null);
+            lbFoto.setText("SEM FOTO");
+        }
+        lbFoto.setVisible(true);
     }
 
     private void digitar(String digito) {
@@ -266,6 +307,7 @@ public class TelaVotacao extends JFrame {
     private void atualizarDisplay() {
         lbDigito1.setText("");
         lbDigito2.setText("");
+        lbFoto.setVisible(false);
         if (numeroDigi.length() >= 1) {
             lbDigito1.setText(numeroDigi.substring(0, 1));
         }
@@ -284,6 +326,7 @@ public class TelaVotacao extends JFrame {
             if (candidatoSelec != null) {
                 lbNome.setText("Nome: " + candidatoSelec.getNome());
                 lbPartido.setText("Partido: " + candidatoSelec.getPartido());
+                mostrarFoto(candidatoSelec);
                 lbAviso.setText("Aperte CONFIRMA para confirmar ou CORRIGE para refazer.");
             } else {
                 lbNome.setText("NÚMERO ERRADO");
@@ -301,6 +344,7 @@ public class TelaVotacao extends JFrame {
         pDigitos.setVisible(false);
         lbNome.setText("");
         lbPartido.setText("");
+        lbFoto.setVisible(false);
         lbAviso.setText("Obrigado por votar!");
 
         Timer temporizador = new Timer(2500, e -> reiniciar());
