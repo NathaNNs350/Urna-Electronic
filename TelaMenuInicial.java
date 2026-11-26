@@ -13,13 +13,14 @@ public class TelaMenuInicial extends JFrame {
     private TelaVotacao telaVotacao;
     private TelaApuracao telaApuracao;
     private TelaSobre telaSobre;
+    private TelaExtras telaExtra;
 
     private JLabel lbTitulo, lbSubTitulo;
     private JButton btVotar, btApurar, btSobre, btVaza;
     private JPanel pTitulo, pBtMenu;
     private JMenuBar mbMenu;
     private JMenu mArquivo, mAjuda;
-    private JMenuItem miSair, miSobre;
+    private JMenuItem miSair, miSobre, miExtras;
 
     public TelaMenuInicial() {
         setLayout(new BorderLayout());
@@ -39,6 +40,7 @@ public class TelaMenuInicial extends JFrame {
         mAjuda = new JMenu("Ajuda");
         miSair = new JMenuItem("Sair");
         miSobre = new JMenuItem("Sobre");
+        miExtras = new JMenuItem("Extras");
 
         lbTitulo.setFont(new Font("Arial Black Normal", Font.BOLD, 24));
         lbTitulo.setForeground(Color.WHITE);
@@ -48,28 +50,16 @@ public class TelaMenuInicial extends JFrame {
         pTitulo.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         pBtMenu.setBorder(BorderFactory.createEmptyBorder(25, 150, 25, 150));
 
-        {
-            btVotar.setFont(new Font("Arial", Font.BOLD, 25));
-            btVotar.setBackground(Color.BLACK);
-            btVotar.setForeground(Color.WHITE);
-
-            btApurar.setFont(new Font("Arial", Font.BOLD, 25));
-            btApurar.setBackground(Color.BLACK);
-            btApurar.setForeground(Color.WHITE);
-
-            btSobre.setFont(new Font("Arial", Font.BOLD, 25));
-            btSobre.setBackground(Color.BLACK);
-            btSobre.setForeground(Color.WHITE);
-
-            btVaza.setFont(new Font("Arial", Font.BOLD, 25));
-            btVaza.setBackground(Color.BLACK);
-            btVaza.setForeground(Color.WHITE);
-        }
+        criarBtMenu(btVotar);
+        criarBtMenu(btApurar);
+        criarBtMenu(btSobre);
+        criarBtMenu(btVaza);
 
         add(pTitulo, BorderLayout.NORTH);
         add(pBtMenu, BorderLayout.CENTER);
         mArquivo.add(miSair);
         mAjuda.add(miSobre);
+        mAjuda.add(miExtras);
         mbMenu.add(mArquivo);
         mbMenu.add(mAjuda);
         pTitulo.add(lbTitulo);
@@ -86,6 +76,7 @@ public class TelaMenuInicial extends JFrame {
         btVaza.addActionListener(e -> sair());
         miSobre.addActionListener(e -> abrirSobre());
         miSair.addActionListener(e -> sair());
+        miExtras.addActionListener(e -> abrirExtras());
 
         setTitle("Urna Remake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,6 +114,14 @@ public class TelaMenuInicial extends JFrame {
         }
     }
 
+    private void abrirExtras() {
+        if (telaExtra == null || !telaExtra.isDisplayable()) {
+            telaExtra = new TelaExtras();
+        } else {
+            telaExtra.toFront();
+        }
+    }
+    
     private void abrirSobre() {
         if (telaSobre == null || !telaSobre.isDisplayable()) {
             telaSobre = new TelaSobre();
@@ -141,6 +140,12 @@ public class TelaMenuInicial extends JFrame {
         if (opcao == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
+    }
+
+    private void criarBtMenu(JButton boton) {
+        boton.setFont(new Font("Arial", Font.BOLD, 25));
+        boton.setBackground(Color.BLACK);
+        boton.setForeground(Color.WHITE);
     }
 
     // Main para iniciar o código

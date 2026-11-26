@@ -5,9 +5,6 @@ import java.util.*;
 import javax.swing.*;
 
 public class TelaApuracao extends JFrame {
-
-    ///MENU INICIAL PARA TESTES!///
-    
     private Eleicao eleicao;
 
     private JLabel lbTitulo;

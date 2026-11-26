@@ -4,9 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 public class TelaSobre extends JFrame {
-
-    ///MENU INICIAL PARA TESTES!///
-    
     private JLabel lbTitulo, lbAutor, lbTurma, lbEscola, lbProfessor, lbData, lbVersao;
     private JPanel pTitulo, pDados, pRodape;
     private JButton btFechar;
@@ -19,8 +16,8 @@ public class TelaSobre extends JFrame {
         lbTurma = new JLabel("Turma: 2o ano - Curso Técnico em Informatica para Internet");
         lbEscola = new JLabel("Escola: IFCE - Instituto Federal do Ceará");
         lbProfessor = new JLabel("Professor(a): Vitor Adler Reis Paiva");
-        lbData = new JLabel("Data: 24/11/2026");
-        lbVersao = new JLabel("Versão: 0.9.1");
+        lbData = new JLabel("Data: 26/11/2026");
+        lbVersao = new JLabel("Versão: 0.9.6");
         btFechar = new JButton("Fechar");
         pTitulo = new JPanel(new FlowLayout());
         pDados = new JPanel(new GridLayout(0, 1, 5, 5));
